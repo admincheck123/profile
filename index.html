@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,30 +11,45 @@
     <script src="scripts.js" defer></script>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
 </head>
+
 <body>
     <div class="container">
+        <!-- Header -->
         <header class="header">
             <div class="profile">
-                <img src="profile.jpg" alt="Your Photo">
+                <div class="avatar-container">
+                    <img src="profile.jpg" alt="Your Photo" class="profile-pic">
+                    <!-- Mèo chuyển động -->
+                    <img src="./anh-gif-2-min-unscreen.gif" alt="Animated Cat" class="animated-cat">
+                </div>
                 <h1>KLE</h1>
                 <p>Web Developer</p>
             </div>
         </header>
+        
 
+        <!-- Main Content -->
         <main class="content">
             <!-- About Me Section -->
-            <section class="about">
+            <section class="about" data-aos="fade-up">
                 <h2>About Me</h2>
                 <p>
-                    Hello! I'm a passionate web developer skilled in both frontend and backend development. 
-                    I have experience creating modern and responsive websites using various technologies. 
-                    Let's work together to bring your ideas to life!
+                    Hello! I'm <strong class="highlight">KLE</strong>, a passionate and young web developer from <strong
+                        class="highlight">Da Nang, Vietnam</strong>, born on <strong class="highlight">May 2,
+                        2007</strong>. At just <strong class="highlight">17+</strong>, I am one of the promising young
+                    talents in web development. I specialize in both <strong class="highlight">frontend</strong> and
+                    <strong class="highlight">backend</strong> technologies, creating modern, responsive websites that
+                    bring ideas to life. My enthusiasm for coding is matched only by my love for <strong
+                        class="highlight">sports</strong> and various other activities. Whether you're looking to build
+                    your next big project or just want to discuss ideas, feel free to reach out—I'm here to help you
+                    make it happen!
                 </p>
             </section>
 
             <!-- Skills Section -->
-            <section class="skills">
+            <section class="skills" data-aos="fade-left">
                 <h2>Skills</h2>
                 <div class="skills-grid">
                     <div class="skill-item"><i class="fab fa-html5"></i> HTML</div>
@@ -47,44 +63,49 @@
             </section>
 
             <!-- Experience Section -->
-            <section class="experience">
+            <section class="experience" data-aos="fade-right">
                 <h2>Experience</h2>
                 <div class="experience-item">
                     <h3>Web Developer at FPT Company</h3>
-                    <p>Developed responsive websites using React, Node.js, and PHP. Collaborated with cross-functional teams to deliver successful projects.</p>
+                    <p>Developed responsive websites using React, Node.js, and PHP. Collaborated with cross-functional
+                        teams to deliver successful projects.</p>
                     <span>Jan 2023 - Present</span>
                 </div>
                 <div class="experience-item">
                     <h3>Frontend Developer at Edu Solutions</h3>
-                    <p>Specialized in creating interactive user interfaces with JavaScript and React, optimizing for performance and cross-browser compatibility.</p>
+                    <p>Specialized in creating interactive user interfaces with JavaScript and React, optimizing for
+                        performance and cross-browser compatibility.</p>
                     <span>Jun 2013 - Dec 2024</span>
                 </div>
             </section>
 
             <!-- Projects Slider Section -->
-            <section class="projects">
+            <section class="projects" data-aos="fade-up">
                 <h2>Projects</h2>
                 <div class="slider-container">
                     <div class="slider-item">
                         <img src="./e-Commerce.png" alt="Project 1">
                         <h3>Project 1: E-Commerce Website</h3>
-                        <p>Developed a full-stack e-commerce website using React and Node.js. Implemented cart system and payment gateway.</p>
+                        <p>Developed a full-stack e-commerce website using React and Node.js. Implemented cart system
+                            and payment gateway.</p>
                     </div>
                     <div class="slider-item">
                         <img src="./portfolio.png" alt="Project 2">
                         <h3>Project 2: Portfolio Website</h3>
-                        <p>Created a modern and responsive portfolio website for a client, showcasing their design work and projects.</p>
+                        <p>Created a modern and responsive portfolio website for a client, showcasing their design work
+                            and projects.</p>
                     </div>
                     <div class="slider-item">
                         <img src="./CMS-Dashboard.png" alt="Project 3">
                         <h3>Project 3: CMS Dashboard</h3>
-                        <p>Built a content management system (CMS) dashboard for a small business, utilizing PHP and MySQL for backend management.</p>
+                        <p>Built a content management system (CMS) dashboard for a small business, utilizing PHP and
+                            MySQL for backend management.</p>
                     </div>
                 </div>
             </section>
 
             <!-- Products Section -->
-            <section class="products">
+            <section class="products" data-aos="fade-left">
                 <h2>Services & Products</h2>
                 <div class="product-grid">
                     <div class="product-item">
@@ -109,7 +130,7 @@
             </section>
 
             <!-- Testimonials Section -->
-            <section class="testimonials">
+            <section class="testimonials" data-aos="fade-up">
                 <h2>Testimonials</h2>
                 <div class="testimonial-slider">
                     <div class="testimonial-item">
@@ -124,37 +145,59 @@
             </section>
 
             <!-- Blog Section -->
-            <section class="blog">
+            <div class="blog">
                 <h2>Latest Blog Posts</h2>
-                <div class="blog-post">
+                <div class="post">
                     <h3>How to Improve Website Performance</h3>
                     <p>Tips and tricks for making your website load faster and rank higher on search engines...</p>
                     <a href="#">Read More</a>
                 </div>
-                <div class="blog-post">
+                <div class="post">
                     <h3>Top 5 Web Development Trends in 2024</h3>
                     <p>A look at the latest trends in the web development industry and what to expect...</p>
                     <a href="#">Read More</a>
                 </div>
+                <div class="post">
+                    <h3>Want to build a website? Contact Me!</h3>
+                    <p>If you are interested in working together or have any questions, feel free to reach out. I'm here
+                        to help you build your next big project!</p>
+                    <div class="contact">
+                        <a href="mailto:lek08670@gmail.com" class="btn email" style="color: aliceblue;">
+                            <i class="fas fa-envelope"></i> Email Me
+                        </a>
+                        <a href="tel:+84775551106" class="btn call" style="color: aliceblue;">
+                            <i class="fas fa-phone-alt"></i> Call Me
+                        </a>
+                        <a href="https://www.instagram.com/lee.khang.0205/" target="_blank" class="btn instagram"
+                            style="color: aliceblue;">
+                            <i class="fab fa-instagram"></i> Instagram
+                        </a>
+                        <a href="https://www.facebook.com/lee.khang.0502?mibextid=JRoKGi" target="_blank"
+                            class="btn facebook" style="color: aliceblue;">
+                            <i class="fab fa-facebook-f"></i> Facebook
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+            <br>
+            <!-- Contact Section -->
+            <section class="contact">
+                <h2>Contact Me</h2>
+                <a href="mailto:lek08670@gmail.com" class="btn email">
+                    <i class="fas fa-envelope"></i> Email Me
+                </a>
+                <a href="tel:+84775551106" class="btn call">
+                    <i class="fas fa-phone-alt"></i> Call Me
+                </a>
+                <a href="https://www.instagram.com/lee.khang.0205/" class="btn instagram" target="_blank">
+                    <i class="fab fa-instagram"></i> Instagram
+                </a>
+                <a href="https://www.facebook.com/lee.khang.0502?mibextid=JRoKGi" class="btn facebook" target="_blank">
+                    <i class="fab fa-facebook-f"></i> Facebook
+                </a>
             </section>
 
-            <!-- Contact Section with Call to Action -->
-            <!-- <section class="contact">
-                <h2>Want to build a website? Contact Me!</h2>
-                <p>Email: <a href="mailto:youremail@gmail.com">lek08670@gmail.com</a></p>
-                <p>Phone: <a href="tel:0775551106">077-555-1106</a></p>
-                <p>LinkedIn: <a href="https://www.instagram.com/lee.khang.0205/" target="_blank">lee.khang.0205</a></p>
-            </section> -->
-            <div class="contact">
-                <h2>Want to build a website? Contact Me!</h2>
-                <p>If you are interested in working together or have any questions, feel free to reach out. I'm here to help you build your next big project!</p>
-                <div class="links">
-                    <a href="mailto:youremail@gmail.com">Email Me</a>
-                    <a href="tel:0775551106">Call Me</a>
-                    <a href="https://www.instagram.com/lee.khang.0205/" target="_blank">Instagram</a>
-                    <a href="https://www.facebook.com/lee.khang.0502?mibextid=JRoKGi" target="_blank">Facebook</a>
-                </div>
-            </div>
         </main>
 
         <!-- Footer -->
@@ -163,15 +206,20 @@
             <div class="social-links">
                 <a href="https://www.instagram.com/lee.khang.0205/" target="_blank"><i class="fab fa-linkedin"></i></a>
                 <a href="https://github.com/admincheck123" target="_blank"><i class="fab fa-github"></i></a>
-                <a href="#" target="_blank"><i class="fab fa-twitter"></i></a>
+                <a href="https://www.facebook.com/lee.khang.0502?mibextid=JRoKGi" target="_blank"><i
+                        class="fab fa-facebook-f"></i></a>
             </div>
         </footer>
 
         <!-- Back to Top Button -->
         <button id="backToTop" class="back-to-top"><i class="fas fa-arrow-up"></i></button>
-        
-        <!-- Dark Mode Toggle -->
-        <!-- <button id="darkModeToggle" class="dark-mode-toggle">Toggle Dark Mode</button> -->
     </div>
+
+    <!-- AOS Script -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script>
+        AOS.init();
+    </script>
 </body>
+
 </html>
