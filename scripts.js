@@ -1,25 +1,22 @@
-// Back to Top Button
-document.getElementById('backToTop').addEventListener('click', () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+// Hamburger Menu Toggle
+const hamburger = document.querySelector('.hamburger');
+const navMenu = document.querySelector('.nav-menu');
+
+hamburger.addEventListener('click', () => {
+    navMenu.classList.toggle('active');
 });
 
-// // Dark Mode Toggle
-// const darkModeToggle = document.getElementById('darkModeToggle');
-// darkModeToggle.addEventListener('click', () => {
-//     document.body.classList.toggle('dark-mode');
-// });
+// Back to Top Button
+const backToTopBtn = document.getElementById('backToTop');
 
-// Slider Functionality
-const sliderItems = document.querySelectorAll('.slider-item');
-let currentIndex = 0;
+window.addEventListener('scroll', () => {
+    if (window.scrollY > 300) {
+        backToTopBtn.style.display = 'block';
+    } else {
+        backToTopBtn.style.display = 'none';
+    }
+});
 
-function showSlide(index) {
-    sliderItems.forEach((item, i) => {
-        item.style.transform = `translateX(${(i - index) * 100}%)`;
-    });
-}
-
-setInterval(() => {
-    currentIndex = (currentIndex + 1) % sliderItems.length;
-    showSlide(currentIndex);
-}, 3000);
+backToTopBtn.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+});
