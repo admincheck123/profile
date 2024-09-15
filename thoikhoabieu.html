@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Thời khóa biểu học tập cho các ngày trong tuần với các môn học đa dạng và thông tin chi tiết.">
+    <title>Thời Khóa Biểu</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="style_tkb.css">
+    
+</head>
+<body>
+        <!-- Loading Screen -->
+        <div id="loading-screen">
+            <div class="spinner"></div>
+            <p>Vui lòng chờ...</p>
+        </div>
+    <header>
+        <h1>Thời Khóa Biểu Học Tập</h1>
+        <nav aria-label="Thời khóa biểu navigation">
+            <ul>
+                <li><a href="#th2" aria-label="Đi đến thời khóa biểu Thứ 2">Thứ 2</a></li>
+                <li><a href="#th3" aria-label="Đi đến thời khóa biểu Thứ 3">Thứ 3</a></li>
+                <li><a href="#th4" aria-label="Đi đến thời khóa biểu Thứ 4">Thứ 4</a></li>
+                <li><a href="#th5" aria-label="Đi đến thời khóa biểu Thứ 5">Thứ 5</a></li>
+                <li><a href="#th6" aria-label="Đi đến thời khóa biểu Thứ 6">Thứ 6</a></li>
+            </ul>
+        </nav>
+        <a href="index.html" class="back-to-top" aria-label="Quay lại trang đầu">⮝</a>
+    </header>
+    <main>
+        <div class="timetable">
+            <div id="th2" class="day" aria-labelledby="th2-title">
+                <h2 id="th2-title">Thứ 2</h2>
+                <ul>
+                    <li><span>Tiết 1</span> <i class="fas fa-flag" aria-hidden="true"></i> Chào Cờ</li>
+                    <li><span>Tiết 2</span> <i class="fas fa-globe" aria-hidden="true"></i> Anh</li>
+                    <li><span>Tiết 3</span> <i class="fas fa-book" aria-hidden="true"></i> Văn</li>
+                    <li><span>Tiết 4</span> <i class="fas fa-leaf" aria-hidden="true"></i> Sinh</li>
+                    <li><span>Tiết 5</span> <i class="fas fa-calculator" aria-hidden="true"></i> Toán</li>
+                </ul>
+            </div>
+            <div id="th3" class="day" aria-labelledby="th3-title">
+                <h2 id="th3-title">Thứ 3</h2>
+                <ul>
+                    <li><span>Tiết 1</span> <i class="fas fa-leaf" aria-hidden="true"></i> Sinh</li>
+                    <li><span>Tiết 2</span> <i class="fas fa-atom" aria-hidden="true"></i> Lý</li>
+                    <li><span>Tiết 3</span> <i class="fas fa-laptop-code" aria-hidden="true"></i> Tin</li>
+                    <li><span>Tiết 4</span> <i class="fas fa-cogs" aria-hidden="true"></i> Trải nghiệm</li>
+                    <li><span>Tiết 5</span> <i class="fas fa-atom" aria-hidden="true"></i> Lý</li>
+                </ul>
+            </div>
+            <div id="th4" class="day" aria-labelledby="th4-title">
+                <h2 id="th4-title">Thứ 4</h2>
+                <ul>
+                    <li><span>Tiết 1</span> <i class="fas fa-question-circle" aria-hidden="true"></i> *</li>
+                    <li><span>Tiết 2</span> <i class="fas fa-history" aria-hidden="true"></i> Sử</li>
+                    <li><span>Tiết 3</span> <i class="fas fa-globe" aria-hidden="true"></i> Anh</li>
+                    <li><span>Tiết 4</span> <i class="fas fa-vial" aria-hidden="true"></i> Hóa</li>
+                    <li><span>Tiết 5</span> <i class="fas fa-vial" aria-hidden="true"></i> Hóa</li>
+                </ul>
+            </div>
+            <div id="th5" class="day" aria-labelledby="th5-title">
+                <h2 id="th5-title">Thứ 5</h2>
+                <ul>
+                    <li><span>Tiết 1</span> <i class="fas fa-calculator" aria-hidden="true"></i> Toán</li>
+                    <li><span>Tiết 2</span> <i class="fas fa-calculator" aria-hidden="true"></i> Toán</li>
+                    <li><span>Tiết 3</span> <i class="fas fa-globe" aria-hidden="true"></i> Anh</li>
+                    <li><span>Tiết 4</span> <i class="fas fa-book" aria-hidden="true"></i> Văn</li>
+                    <li><span>Tiết 5</span> <i class="fas fa-book" aria-hidden="true"></i> Văn</li>
+                </ul>
+            </div>
+            <div id="th6" class="day" aria-labelledby="th6-title">
+                <h2 id="th6-title">Thứ 6</h2>
+                <ul>
+                    <li><span>Tiết 1</span> <i class="fas fa-laptop-code" aria-hidden="true"></i> Tin</li>
+                    <li><span>Tiết 2</span> <i class="fas fa-atom" aria-hidden="true"></i> Lý</li>
+                    <li><span>Tiết 3</span> <i class="fas fa-calculator" aria-hidden="true"></i> Toán</li>
+                    <li><span>Tiết 4</span> <i class="fas fa-vial" aria-hidden="true"></i> Hóa</li>
+                    <li><span>Tiết 5</span> <i class="fas fa-school" aria-hidden="true"></i> SH</li>
+                </ul>
+            </div>
+        </div>
+    </main>
+    <script src="scripts_tkb.js" defer></script>
+</body>
+</html>
