@@ -1,3 +1,11 @@
+document.addEventListener('DOMContentLoaded', () => {
+    // Hiện màn hình tải trong 2 giây
+    setTimeout(() => {
+        const loadingScreen = document.getElementById('loading-screen');
+        if (loadingScreen) {
+            loadingScreen.classList.add('hidden');
+        }
+    }, 2000);
 // Hamburger Menu Toggle
 const hamburger = document.querySelector('.hamburger');
 const navMenu = document.querySelector('.nav-menu');
@@ -19,4 +27,5 @@ window.addEventListener('scroll', () => {
 
 backToTopBtn.addEventListener('click', () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
+});
 });
