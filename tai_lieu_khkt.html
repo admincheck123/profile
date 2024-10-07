@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hệ Thống Nông Nghiệp Thông Minh</title>
+    <link rel="stylesheet" href="styles_tailieu_khkt.css">
+    <script src="script_khkt_tl.js" defer></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <!-- Tối ưu hóa Cache -->
+    <meta http-equiv="Cache-Control" content="max-age=3600, must-revalidate">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Hệ Thống Nông Nghiệp Thông Minh</h1>
+        </div>
+    </header>
+
+    <!-- Table of Contents -->
+    <nav class="toc">
+        <h2>Mục Lục</h2>
+        <ul>
+            <li><a href="#summary">1. Tóm tắt các điều kiện và thiết bị</a></li>
+            <li><a href="#hardware">2. Kết nối phần cứng</a></li>
+            <li><a href="#arduino-code">3. Code tích hợp trên Arduino</a></li>
+            <li><a href="#esp8266-code">4. Tiếp tục kết nối và tích hợp ESP8266</a></li>
+            <li><a href="#nodejs-code">5. Code server Node.js</a></li>
+            <li><a href="#instructions">6. Hướng dẫn tích hợp và chạy</a></li>
+            <li><a href="#advanced">7. Nâng cao với AI</a></li>
+        </ul>
+    </nav>
+
+    <main class="container">
+        <!-- Section 1: Summary of Conditions and Devices -->
+        <section id="summary" class="summary">
+            <h2>1. Tóm tắt các điều kiện và thiết bị:</h2>
+            <div class="highlight-box">
+                <p><strong>Cảm biến và thiết bị:</strong></p>
+                <ul>
+                    <li>Cảm biến nhiệt độ, độ ẩm (DHT11)</li>
+                    <li>Cảm biến độ ẩm đất</li>
+                    <li>Cảm biến ánh sáng (BH1750)</li>
+                    <li>Cảm biến khói (MQ2)</li>
+                    <li>Relay điều khiển: 2 quạt mini, máy phun nước, đèn LED, đèn cảnh báo</li>
+                    <li>Màn hình LCD</li>
+                    <li>ESP8266 để truyền dữ liệu lên web</li>
+                </ul>
+                <p><strong>Điều kiện hoạt động:</strong></p>
+                <ul>
+                    <li>Ánh sáng: Nếu mức ánh sáng &lt; 300 lux, bật đèn LED và hiển thị "Ánh sáng yếu".</li>
+                    <li>Nhiệt độ &amp; độ ẩm:
+                        <ul>
+                            <li>Nhiệt độ &gt; 30°C: Bật quạt làm mát.</li>
+                            <li>Độ ẩm &lt; 40%: Bật máy phun nước.</li>
+                        </ul>
+                    </li>
+                    <li>Độ ẩm đất: Độ ẩm đất &lt; 40%, bật máy phun nước và hiển thị "Đang tưới cây".</li>
+                    <li>Khói: Nếu phát hiện khói, kích hoạt đèn cảnh báo và bật quạt.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Section 2: Hardware Connections -->
+        <section id="hardware" class="hardware">
+            <h2>2. Kết nối phần cứng</h2>
+            <div class="highlight-box">
+                <p><strong>Arduino Uno:</strong></p>
+                <ul>
+                    <li><strong>DHT11:</strong> Chân DATA kết nối với chân số 2 của Arduino.</li>
+                    <li><strong>Cảm biến độ ẩm đất:</strong> Kết nối với chân A0 của Arduino.</li>
+                    <li><strong>Cảm biến ánh sáng BH1750:</strong> Kết nối với chân SDA và SCL của Arduino (SDA = A4, SCL = A5).</li>
+                    <li><strong>Cảm biến khói MQ2:</strong> Kết nối với chân A1 của Arduino.</li>
+                    <li><strong>Relay điều khiển:</strong>
+                        <ul>
+                            <li>Quạt 1: Chân 7</li>
+                            <li>Quạt 2: Chân 8</li>
+                            <li>Máy phun nước: Chân 9</li>
+                            <li>Đèn LED: Chân 10</li>
+                            <li>Đèn cảnh báo: Chân 11</li>
+                        </ul>
+                    </li>
+                    <li><strong>LCD I2C:</strong> Kết nối với SDA, SCL (A4, A5).</li>
+                    <li><strong>ESP8266:</strong> TX của ESP8266 vào chân RX của Arduino (chân 3), RX vào chân TX (chân 4).</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Section 3: Arduino Code -->
+        <section id="arduino-code" class="code">
+            <h2>3. Code tích hợp trên Arduino</h2>
+            <button class="accordion"><i class="fas fa-code"></i> Xem mã Arduino</button>
+            <div class="panel">
+                <div class="code-container">
+                    <pre><code id="arduino-code-content">// Đoạn mã Arduino
+#include &lt;Wire.h&gt;
+#include &lt;LiquidCrystal_I2C.h&gt;
+#include &lt;DHT.h&gt;
+#include &lt;BH1750.h&gt;
+#include &lt;SoftwareSerial.h&gt;
+
+// Định nghĩa các chân kết nối
+#define DHTPIN 2
+#define DHTTYPE DHT11
+#define FAN1_PIN 7
+#define FAN2_PIN 8
+#define PUMP_PIN 9
+#define LED_PIN 10
+#define WARNING_PIN 11
+#define MQ_PIN A1
+#define SOIL_PIN A0
+
+// Định nghĩa giao tiếp với ESP8266
+SoftwareSerial espSerial(3, 4); // RX, TX
+
+// Ngưỡng giá trị
+#define LIGHT_THRESHOLD 300
+#define TEMP_THRESHOLD 30
+#define HUMIDITY_THRESHOLD 40
+#define SOIL_MOISTURE_THRESHOLD 400
+#define SMOKE_THRESHOLD 250
+
+// Khởi tạo đối tượng cảm biến
+DHT dht(DHTPIN, DHTTYPE);
+BH1750 lightMeter;
+LiquidCrystal_I2C lcd(0x27, 16, 2);
+
+// Biến lưu trạng thái thiết bị
+bool fan1Running = false;
+bool fan2Running = false;
+bool pumpRunning = false;
+bool ledRunning = false;
+bool warningRunning = false;
+
+void setup() {
+  lcd.init();
+  lcd.backlight();
+  dht.begin();
+  lightMeter.begin();
+  Serial.begin(9600);
+  espSerial.begin(9600); // Giao tiếp với ESP8266
+
+  // Thiết lập các chân relay làm đầu ra
+  pinMode(FAN1_PIN, OUTPUT);
+  pinMode(FAN2_PIN, OUTPUT);
+  pinMode(PUMP_PIN, OUTPUT);
+  pinMode(LED_PIN, OUTPUT);
+  pinMode(WARNING_PIN, OUTPUT);
+
+  // Tắt tất cả thiết bị lúc khởi động
+  digitalWrite(FAN1_PIN, HIGH);
+  digitalWrite(FAN2_PIN, HIGH);
+  digitalWrite(PUMP_PIN, HIGH);
+  digitalWrite(LED_PIN, HIGH);
+  digitalWrite(WARNING_PIN, HIGH);
+
+  // Hiệu ứng khởi động trên LCD
+  lcd.setCursor(2, 0);
+  lcd.print("HELLO ^^");
+  delay(2000);
+  lcd.clear();
+}
+
+void loop() {
+  // Logic điều khiển các thiết bị dựa trên cảm biến
+}</code></pre>
+                    <button class="copy-btn" onclick="copyCode('arduino-code-content')"><i class="fas fa-copy"></i> Sao chép</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: ESP8266 Integration -->
+        <section id="esp8266-code" class="code">
+            <h2>4. Tiếp tục kết nối và tích hợp ESP8266 để gửi dữ liệu lên web</h2>
+            <button class="accordion"><i class="fas fa-code"></i> Xem mã ESP8266</button>
+            <div class="panel">
+                <div class="code-container">
+                    <pre><code id="esp8266-code-content">// Code ESP8266 để gửi dữ liệu
+#include &lt;Wire.h&gt;
+#include &lt;LiquidCrystal_I2C.h&gt;
+#include &lt;DHT.h&gt;
+#include &lt;BH1750.h&gt;
+#include &lt;SoftwareSerial.h&gt;
+
+// Định nghĩa các chân kết nối
+#define DHTPIN 2
+#define DHTTYPE DHT11
+#define FAN1_PIN 7
+#define FAN2_PIN 8
+#define PUMP_PIN 9
+#define LED_PIN 10
+#define WARNING_PIN 11
+#define MQ_PIN A1
+#define SOIL_PIN A0
+
+// Định nghĩa giao tiếp với ESP8266
+SoftwareSerial espSerial(3, 4); // RX, TX
+
+// Ngưỡng giá trị
+#define LIGHT_THRESHOLD 300
+#define TEMP_THRESHOLD 30
+#define HUMIDITY_THRESHOLD 40
+#define SOIL_MOISTURE_THRESHOLD 400
+#define SMOKE_THRESHOLD 250
+
+// Khởi tạo đối tượng cảm biến
+DHT dht(DHTPIN, DHTTYPE);
+BH1750 lightMeter;
+LiquidCrystal_I2C lcd(0x27, 16, 2);
+
+void setup() {
+  lcd.init();
+  lcd.backlight();
+  dht.begin();
+  lightMeter.begin();
+  Serial.begin(9600);
+  espSerial.begin(9600); // Giao tiếp với ESP8266
+
+  // Kết nối ESP8266 với WiFi
+  espSerial.println("AT+CWMODE=1");
+  delay(1000);
+  espSerial.println("AT+CWJAP=\"your_SSID\",\"your_PASSWORD\"");
+  delay(5000);
+}
+
+void loop() {
+  // Gửi dữ liệu đến server
+}</code></pre>
+                    <button class="copy-btn" onclick="copyCode('esp8266-code-content')"><i class="fas fa-copy"></i> Sao chép</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 5: Node.js Code -->
+        <section id="nodejs-code" class="code">
+            <h2>5. Code server Node.js</h2>
+            <button class="accordion"><i class="fas fa-code"></i> Xem mã Node.js</button>
+            <div class="panel">
+                <div class="code-container">
+                    <pre><code id="nodejs-code-content">// Code server Node.js
+const express = require('express');
+const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
+
+const app = express();
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
+// Kết nối đến MongoDB
+mongoose.connect('mongodb://localhost:27017/smart_farm', {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+});
+
+const SensorDataSchema = new mongoose.Schema({
+    temperature: Number,
+    humidity: Number,
+    smokeLevel: Number,
+    lightLevel: Number,
+    soilMoisture: Number,
+    timestamp: { type: Date, default: Date.now },
+});
+
+const SensorData = mongoose.model('SensorData', SensorDataSchema);
+
+// Route để nhận dữ liệu từ Arduino thông qua ESP8266
+app.get('/update', async (req, res) => {
+    const { Temp, Hum, Smoke, Light, Soil } = req.query;
+
+    try {
+        const newData = new SensorData({
+            temperature: parseFloat(Temp),
+            humidity: parseFloat(Hum),
+            smokeLevel: parseInt(Smoke),
+            lightLevel: parseFloat(Light),
+            soilMoisture: parseInt(Soil),
+        });
+        
+        await newData.save();
+        res.send('Data received and saved to database');
+    } catch (error) {
+        res.status(500).send('Error saving data');
+    }
+});
+
+app.listen(3000, () => {
+    console.log('Server is running on port 3000');
+});</code></pre>
+                    <button class="copy-btn" onclick="copyCode('nodejs-code-content')"><i class="fas fa-copy"></i> Sao chép</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 6: Setup Instructions -->
+        <section id="instructions" class="instructions">
+            <h2>6. Hướng dẫn tích hợp và chạy:</h2>
+            <div class="highlight-box">
+                <p><strong>Kết nối phần cứng:</strong> Kết nối tất cả các cảm biến, LCD, relay theo phần hướng dẫn ở trên.</p>
+                <p><strong>Nạp code Arduino:</strong> Tải mã nguồn Arduino lên thiết bị của bạn.</p>
+                <p><strong>Kết nối ESP8266 với WiFi:</strong> Đảm bảo bạn đã chỉnh sửa mã với SSID và mật khẩu của WiFi.</p>
+                <p><strong>Cài đặt server Node.js:</strong></p>
+                <ul>
+                    <li>Tạo một tệp <code>app.js</code> và dán mã server Node.js vào.</li>
+                    <li>Chạy server bằng lệnh:</li>
+                    <div class="code-container">
+                        <pre><code id="npm-code-content">npm install express mongoose body-parser
+node app.js</code></pre>
+                        <button class="copy-btn" onclick="copyCode('npm-code-content')"><i class="fas fa-copy"></i> Sao chép</button>
+                    </div>
+                    <li>Đảm bảo MongoDB đang chạy.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Section 7: Advanced Integration -->
+        <section id="advanced" class="advanced">
+            <h2>7. Nâng cao với AI</h2>
+            <div class="highlight-box">
+                <p>Trên server Node.js, bạn có thể tích hợp một mô hình học máy (Machine Learning) để phân tích và dự đoán xu hướng dữ liệu môi trường (nhiệt độ, độ ẩm, mức ánh sáng).</p>
+                <p>Điều chỉnh ngưỡng hoạt động của các thiết bị dựa trên dữ liệu thu thập được.</p>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <div class="container">
+            <p>© 2024 Hệ Thống Nông Nghiệp Thông Minh <br> DESIGN KLE</p>
+            <a href="home.html" class="back-to-home-btn">Quay lại trang chủ</a>
+        </div>
+    </footer>
+</body>
+</html>

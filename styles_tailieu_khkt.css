@@ -1,0 +1,257 @@
+/* Import Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+/* Variables */
+/* Mixins */
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Body */
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: #121212;
+  color: #ffffff;
+  line-height: 1.8;
+  overflow-x: hidden;
+}
+
+/* Container */
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Header */
+header {
+  background: linear-gradient(135deg, #1f4037, #99f2c8);
+  color: #ffffff;
+  text-align: center;
+  padding: 30px 0;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+header h1 {
+  font-size: 2.5rem;
+  font-weight: 600;
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
+  animation: slide-in 1.5s ease-out forwards;
+}
+
+/* Main Content */
+main {
+  padding: 20px 0;
+}
+
+/* Heading Styles */
+h2 {
+  margin-bottom: 20px;
+  color: #99f2c8;
+  font-size: 1.8rem;
+  font-weight: 600;
+}
+
+/* Highlight Box */
+.highlight-box {
+  background-color: #1e1e1e;
+  padding: 20px;
+  border-left: 6px solid #99f2c8;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* List Styles */
+ul {
+  list-style-type: disc;
+  padding-left: 20px;
+  margin-bottom: 20px;
+}
+
+ul ul {
+  list-style-type: circle;
+}
+
+li {
+  background: #1f4037;
+  color: #ffffff;
+  padding: 12px;
+  margin: 5px 0;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Table of Contents */
+.toc {
+  background-color: #1e1e1e;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.toc h2 {
+  color: #99f2c8;
+}
+
+.toc ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.toc ul li {
+  margin-bottom: 10px;
+}
+
+.toc ul li a {
+  color: #99f2c8;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s ease-in-out;
+}
+
+.toc ul li a:hover {
+  color: #33a673;
+}
+
+/* Accordion Button */
+.accordion {
+  background-color: #1f4037;
+  color: #ffffff;
+  cursor: pointer;
+  padding: 15px;
+  width: 100%;
+  text-align: left;
+  border: none;
+  outline: none;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  font-size: 16px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.accordion:hover {
+  background-color: #33a673;
+}
+
+.accordion i {
+  margin-right: 10px;
+}
+
+/* Panel */
+.panel {
+  background-color: #292929;
+  max-height: 0;
+  overflow: hidden;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  transition: max-height 0.4s ease-out;
+}
+
+.panel .code-container {
+  padding: 20px;
+  color: #ffffff;
+}
+
+/* Code Styling */
+pre {
+  overflow-x: auto;
+  background-color: #333;
+  padding: 20px;
+  border-radius: 8px;
+  font-size: 14px;
+  line-height: 1.6;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+/* Copy Button */
+.copy-btn {
+  background: linear-gradient(135deg, #99f2c8, #1f4037);
+  color: #ffffff;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 8px;
+  margin-top: 10px;
+  display: block;
+  font-weight: 500;
+  transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+.copy-btn:hover {
+  background: #33a673;
+  transform: scale(1.05);
+}
+
+.copy-btn.copied {
+  background: #ffd700;
+  color: #333;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 20px;
+  background: linear-gradient(135deg, #1f4037, #99f2c8);
+  color: #ffffff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  border-radius: 8px;
+  margin-top: 20px;
+}
+
+footer p {
+  animation: fade-in 2s ease-out forwards;
+}
+
+/* Smooth Scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Animations */
+@keyframes slide-in {
+  from {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+/* Back to Home Button */
+.back-to-home-btn {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 12px 25px;
+    background: linear-gradient(135deg, #1f4037, #99f2c8);
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 500;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+.back-to-home-btn:hover {
+    background: #33a673;
+    transform: scale(1.1);
+}
