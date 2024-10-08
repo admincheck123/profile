@@ -33,33 +33,72 @@
 
     <main class="container">
         <!-- Section 1: Summary of Conditions and Devices -->
-        <section id="summary" class="summary">
-            <h2>1. Tóm tắt các điều kiện và thiết bị:</h2>
-            <div class="highlight-box">
-                <p><strong>Cảm biến và thiết bị:</strong></p>
+<section id="summary" class="summary">
+    <h2>1. Tóm tắt các điều kiện và thiết bị:</h2>
+    <div class="highlight-box">
+        <p><strong>Cảm biến và thiết bị:</strong></p>
+        <ul>
+            <li>Cảm biến nhiệt độ, độ ẩm (DHT11)</li>
+            <li>Cảm biến độ ẩm đất</li>
+            <li>Cảm biến ánh sáng (BH1750)</li>
+            <li>Cảm biến khói (MQ2)</li>
+            <li>Relay điều khiển: 2 quạt mini, máy phun nước, đèn LED, đèn cảnh báo</li>
+            <li>Màn hình LCD</li>
+            <li>ESP8266 để truyền dữ liệu lên web</li>
+        </ul>
+    <div class="highlight-box">
+        <p><strong>Điều kiện nâng cao:</strong></p>
+        <ul>
+            <li><strong>1. Quản lý ánh sáng:</strong>
                 <ul>
-                    <li>Cảm biến nhiệt độ, độ ẩm (DHT11)</li>
-                    <li>Cảm biến độ ẩm đất</li>
-                    <li>Cảm biến ánh sáng (BH1750)</li>
-                    <li>Cảm biến khói (MQ2)</li>
-                    <li>Relay điều khiển: 2 quạt mini, máy phun nước, đèn LED, đèn cảnh báo</li>
-                    <li>Màn hình LCD</li>
-                    <li>ESP8266 để truyền dữ liệu lên web</li>
+                    <li>Điều kiện 1: Nếu mức ánh sáng &lt; 300 lux và nhiệt độ &lt; 25°C, bật đèn LED và hiển thị "Ánh sáng yếu, nhiệt độ thấp".</li>
+                    <li>Điều kiện 2: Nếu mức ánh sáng &lt; 300 lux và nhiệt độ &ge; 25°C, bật đèn LED và hiển thị "Ánh sáng yếu, bổ sung ánh sáng".</li>
+                    <li>Điều kiện 3: Nếu mức ánh sáng &ge; 300 lux, tắt đèn LED và hiển thị "Đủ ánh sáng".</li>
                 </ul>
-                <p><strong>Điều kiện hoạt động:</strong></p>
+            </li>
+            <li><strong>2. Kiểm soát nhiệt độ &amp; độ ẩm không khí:</strong>
                 <ul>
-                    <li>Ánh sáng: Nếu mức ánh sáng &lt; 300 lux, bật đèn LED và hiển thị "Ánh sáng yếu".</li>
-                    <li>Nhiệt độ &amp; độ ẩm:
-                        <ul>
-                            <li>Nhiệt độ &gt; 30°C: Bật quạt làm mát.</li>
-                            <li>Độ ẩm &lt; 40%: Bật máy phun nước.</li>
-                        </ul>
-                    </li>
-                    <li>Độ ẩm đất: Độ ẩm đất &lt; 40%, bật máy phun nước và hiển thị "Đang tưới cây".</li>
-                    <li>Khói: Nếu phát hiện khói, kích hoạt đèn cảnh báo và bật quạt.</li>
+                    <li>Điều kiện 1: Nếu nhiệt độ &gt; 30°C và độ ẩm &lt; 40%, bật quạt làm mát, máy phun nước và hiển thị "Làm mát & Tăng độ ẩm".</li>
+                    <li>Điều kiện 2: Nếu nhiệt độ &gt; 30°C nhưng độ ẩm &ge; 40%, chỉ bật quạt làm mát và hiển thị "Làm mát không khí".</li>
+                    <li>Điều kiện 3: Nếu nhiệt độ từ 25°C - 30°C và độ ẩm &lt; 40%, bật máy phun nước và hiển thị "Tăng độ ẩm".</li>
+                    <li>Điều kiện 4: Nếu nhiệt độ &lt; 25°C và độ ẩm &gt; 60%, tắt quạt và máy phun nước, hiển thị "Điều kiện tốt".</li>
                 </ul>
-            </div>
-        </section>
+            </li>
+            <li><strong>3. Quản lý độ ẩm đất:</strong>
+                <ul>
+                    <li>Điều kiện 1: Nếu độ ẩm đất &lt; 40%, bật máy phun nước trong 10 giây, sau đó tắt để tránh lãng phí nước, hiển thị "Đang tưới cây".</li>
+                    <li>Điều kiện 2: Nếu độ ẩm đất từ 40% - 70%, duy trì chế độ chờ và hiển thị "Độ ẩm đất ổn định".</li>
+                    <li>Điều kiện 3: Nếu độ ẩm đất &gt; 70%, hiển thị "Độ ẩm đất cao, không cần tưới".</li>
+                </ul>
+            </li>
+            <li><strong>4. Phát hiện khói và phản ứng:</strong>
+                <ul>
+                    <li>Điều kiện 1: Nếu phát hiện khói và ánh sáng &lt; 100 lux (ban đêm), bật đèn cảnh báo, chạy quạt, hiển thị "Cảnh báo khói! - Ban đêm".</li>
+                    <li>Điều kiện 2: Nếu phát hiện khói và ánh sáng &ge; 100 lux (ban ngày), bật đèn cảnh báo và quạt ở chế độ nhẹ, hiển thị "Cảnh báo khói! - Ban ngày".</li>
+                    <li>Điều kiện 3: Nếu không phát hiện khói, tắt đèn cảnh báo và quạt, hiển thị "Không có khói, an toàn".</li>
+                </ul>
+            </li>
+            <li><strong>5. Xử lý thời gian hoạt động:</strong>
+                <ul>
+                    <li>Quạt chạy quá 10 phút, tắt trong 5 phút để tránh quá tải.</li>
+                    <li>Máy phun nước chạy quá 5 phút, tắt trong 5 phút để tránh lãng phí.</li>
+                </ul>
+            </li>
+            <li><strong>6. Phản hồi thông minh trên màn LCD:</strong>
+                <ul>
+                    <li>Mỗi 5 giây hiển thị một loại thông tin (ánh sáng, nhiệt độ, độ ẩm, độ ẩm đất, trạng thái thiết bị).</li>
+                    <li>Hiển thị trạng thái hoạt động khi bật đèn, quạt, máy phun nước hoặc đèn cảnh báo.</li>
+                </ul>
+            </li>
+            <li><strong>7. Xử lý lỗi cảm biến:</strong>
+                <ul>
+                    <li>Nếu cảm biến bị lỗi, hiển thị "Lỗi cảm biến" và gửi cảnh báo qua kết nối IoT đến hệ thống giám sát.</li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</section>
+
 
         <!-- Section 2: Hardware Connections -->
         <section id="hardware" class="hardware">
@@ -324,7 +363,7 @@ node app.js</code></pre>
     <footer>
         <div class="container">
             <p>© 2024 Hệ Thống Nông Nghiệp Thông Minh <br> DESIGN KLE</p>
-            <a href="index.html" class="back-to-home-btn">Quay lại trang chủ</a>
+            <a href="home.html" class="back-to-home-btn">Quay lại trang chủ</a>
         </div>
     </footer>
 </body>
